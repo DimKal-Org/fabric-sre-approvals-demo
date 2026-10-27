@@ -10,7 +10,6 @@ It is not a production-hardened control plane.
 
 ## Start here
 
-- [Architecture and business overview](./fabric-sre-approvals-blog.md)
 - [Editable architecture and workflow diagrams](./diagrams/README.md)
 - [App, data model, decision Functions, and validation guide](./app/README.md)
 - [Agent instructions](./fabric/generic-agent-instructions.md)
