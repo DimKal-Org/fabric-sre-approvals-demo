@@ -109,6 +109,43 @@ Approved and add metadata. The demo has no distributed lock, immutable audit log
 or guaranteed exactly-once workflow. Review the documented recovery limitations,
 least-privilege controls, credentials, and release process before production use.
 
+## Security and authorization
+
+The following table summarizes authentication and access requirements for the
+agent's investigation and native UDF workflow. **UAMI** means user-assigned
+managed identity. This demo uses Contributor as its workspace-role baseline;
+that access does not authorize actions outside the read-only investigation and
+human-approved change boundaries.
+
+| Step | Auth method | Requires |
+|---|---|---|
+| Discover workspaces and items (Fabric MCP) | UAMI via MCP connector | Workspace role for the UAMI |
+| Query FUAM SQL endpoint | UAMI via MCP connector | Workspace role on the FUAM workspace for the UAMI |
+| Read notebook definition (Fabric API) | UAMI obtains a Fabric token | Workspace role for the UAMI |
+| Read Spark monitoring data | UAMI obtains a Fabric token | Workspace role for the UAMI |
+| Discover workspace Git connection | UAMI obtains a Fabric token | Workspace role for the UAMI |
+| Read notebook source from GitHub | SREAgent-OAuth proxy token | Organization owner approves SREAgent-OAuth where OAuth app restrictions apply |
+| Log recommendation / commit (UDF invocation) | UAMI obtains a Fabric token | Workspace role on the UDF/app workspace for the UAMI |
+| UDF pushes commit to GitHub | PAT from the Variable Library | PAT has Contents read/write on the target repository |
+| Azure Retail Prices API | None (public) | No authentication required |
+
+A workspace role alone does not prove that the FUAM SQL endpoint connection
+works. Configure and verify the connector's SQL read access separately. Native
+UDF access to the app database likewise uses its configured `sqlDB` binding and
+SQL permissions; the caller's Fabric token authenticates UDF invocation, not the
+downstream SQL connection.
+
+GitHub OAuth authorization for source reads and PAT authorization for writes are
+separate. The app's decision Functions use a separately stored PAT to create the
+approved branch, while the UDF reads its PAT from `githubConfig`. The agent never
+receives either PAT. Decision notifications to the originating SRE thread use
+the app's separate service principal and client-credentials flow, and reviewers
+access the approval app through Fabric SSO.
+
+Human approval remains mandatory before repository changes. The workflow does
+not automatically merge, deploy, publish, execute workloads, or synchronize
+Fabric workspaces.
+
 ## Licensing
 
 See the root [MIT license](./LICENSE), the retained Microsoft
