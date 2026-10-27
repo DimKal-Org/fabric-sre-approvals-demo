@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": ".temp/compiled",
+    "rootDir": ".",
+    "declaration": true,
+    "composite": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "tsBuildInfoFile": ".temp/rayfin.tsbuildinfo"
+  },
+  "files": [],
+  "include": ["**/*"],
+  "exclude": [".temp/**/*", "functions/**/*"]
+}

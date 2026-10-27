@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "GITHUB_PAT",
+      "note": "Dummy value for the public demo. Not a valid credential. Never commit a real PAT.",
+      "type": "String",
+      "value": "DUMMY_VALUE_NOT_A_REAL_GITHUB_PAT"
+    }
+  ]
+}

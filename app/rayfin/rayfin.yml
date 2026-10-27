@@ -1,0 +1,51 @@
+id: sre-approvals
+name: sre-approvals
+version: 1.0.0
+services:
+  auth:
+    enabled: true
+    fabric:
+      enabled: true
+      externalEntraExchange: true
+    password:
+      enabled: false
+    allowedRedirectUris:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+  data:
+    enabled: true
+    path: packages/data
+    buildCommand: npm run build
+    dialect: mssql
+  staticHosting:
+    enabled: true
+    path: packages/frontend
+    folder: dist
+    buildCommand: npm run build:fabric
+    indexDocument: index.html
+    assetAccess: protected
+    embedded:
+      only: false
+  storage:
+    enabled: false
+  functions:
+    enabled: true
+    path: packages/functions
+    buildCommand: npm run build
+    auth:
+      type: application
+secrets:
+  - name: GITHUB_PAT
+    description: GitHub credential for creating recommendation branches
+  - name: GITHUB_REPO_URL
+    description: Legacy unused setting - repository now comes from each recommendation
+  - name: GITHUB_BASE_BRANCH
+    description: Legacy unused setting - base branch now comes from each recommendation
+  - name: SRE_TENANT_ID
+    description: Entra tenant for SRE Agent client credentials
+  - name: SRE_CLIENT_ID
+    description: Entra application for SRE Agent notifications
+  - name: SRE_CLIENT_SECRET
+    description: Entra application credential for SRE Agent notifications
+  - name: SRE_AGENT_ENDPOINT
+    description: SRE Agent endpoint for thread messages

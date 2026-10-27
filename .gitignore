@@ -218,3 +218,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Public reference: never publish generated environment bindings or live secrets.
+app/.mcp.json
+app/rayfin/.lockfile.json
+**/.platform
+fabric/function-sre-recommendation-skills.UserDataFunction/definition.json
+.env
+.env.*
+!.env.example
+
+# The inherited Python lib/ rule must not hide required frontend source.
+!app/packages/frontend/src/lib/
+!app/packages/frontend/src/lib/**

@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-pd-primary: #51cbce;
+  --color-pd-primary-dark: #34b5b8;
+  --color-pd-info: #51bcda;
+  --color-pd-success: #6bd098;
+  --color-pd-warning: #fbc658;
+  --color-pd-danger: #ef8157;
+  --color-pd-neutral: #66615b;
+  --color-pd-muted: #9a9a9a;
+  --color-pd-canvas: #f4f3ef;
+  --color-pd-sidebar: #212120;
+  --color-pd-sidebar-hi: #2c2c2c;
+  --color-pd-line: #ddd9d3;
+  --color-pd-grid: #e6e2dc;
+  --font-sans: 'Muli', ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 12px;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-pd-line);
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-pd-canvas);
+    color: var(--color-pd-neutral);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pd-neutral);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .pd-card {
+    background-color: #fff;
+    border-radius: var(--radius-card);
+    box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
+  }
+
+  .pd-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-pd-primary px-4 py-2 text-[13px] font-semibold text-pd-sidebar transition-colors hover:bg-pd-primary-dark disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .pd-button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-pd-line bg-white px-4 py-2 text-[13px] font-light text-pd-neutral transition-colors hover:border-pd-primary disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .pd-input {
+    @apply w-full rounded-lg border border-pd-line bg-white px-3 py-2 text-[13px] font-light text-pd-neutral placeholder:text-pd-muted disabled:cursor-not-allowed disabled:bg-pd-canvas;
+  }
+
+  .pd-table {
+    @apply w-full border-collapse text-left text-[13px] font-light;
+  }
+
+  .pd-table th {
+    @apply border-b border-pd-line px-4 py-3 font-semibold text-pd-neutral;
+  }
+
+  .pd-table td {
+    @apply border-b border-pd-line/70 px-4 py-3 align-top;
+  }
+
+  .pd-table tbody tr:hover {
+    @apply bg-pd-canvas/60;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
